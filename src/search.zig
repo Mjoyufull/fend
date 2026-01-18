@@ -32,7 +32,12 @@ pub fn searchFiles(
         gitignore_patterns.deinit(allocator);
     }
 
-    var root_dir = try std.fs.openDirAbsolute(root_path, .{ .iterate = true });
+    var root_dir = std.fs.openDirAbsolute(root_path, .{ .iterate = true }) catch |err| {
+        if (err == error.AccessDenied or err == error.PermissionDenied) {
+            return results; // Return empty results instead of crashing
+        }
+        return err;
+    };
     defer root_dir.close();
 
     try walkDirectory(

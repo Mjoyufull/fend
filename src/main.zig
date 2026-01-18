@@ -50,7 +50,8 @@ pub fn main() !void {
 }
 
 fn listMatches(allocator: std.mem.Allocator, pattern: []const u8, cfg: *const config.Config) !void {
-    const root = "/";
+    const home = std.posix.getenv("HOME") orelse "/";
+    const root = home;
     const search_opts = search.SearchOptions{
         .exclude_patterns = cfg.search.exclude,
         .max_depth = cfg.search.max_depth,
@@ -73,7 +74,8 @@ fn listMatches(allocator: std.mem.Allocator, pattern: []const u8, cfg: *const co
 }
 
 fn copyFirstToClipboard(allocator: std.mem.Allocator, pattern: []const u8, cfg: *const config.Config) !void {
-    const root = "/";
+    const home = std.posix.getenv("HOME") orelse "/";
+    const root = home;
     const search_opts = search.SearchOptions{
         .exclude_patterns = cfg.search.exclude,
         .max_depth = cfg.search.max_depth,
@@ -94,7 +96,8 @@ fn copyFirstToClipboard(allocator: std.mem.Allocator, pattern: []const u8, cfg: 
 }
 
 fn navigateAndList(allocator: std.mem.Allocator, pattern: []const u8, cfg: *const config.Config) !void {
-    const root = "/";
+    const home = std.posix.getenv("HOME") orelse "/";
+    const root = home;
     const search_opts = search.SearchOptions{
         .exclude_patterns = cfg.search.exclude,
         .max_depth = cfg.search.max_depth,
@@ -140,7 +143,8 @@ fn navigateAndList(allocator: std.mem.Allocator, pattern: []const u8, cfg: *cons
 }
 
 fn interactiveMenu(allocator: std.mem.Allocator, pattern: []const u8, cfg: *const config.Config) !void {
-    const root = "/";
+    const home = std.posix.getenv("HOME") orelse "/";
+    const root = home;
     const search_opts = search.SearchOptions{
         .exclude_patterns = cfg.search.exclude,
         .max_depth = cfg.search.max_depth,
